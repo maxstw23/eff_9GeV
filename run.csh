@@ -14,7 +14,7 @@ mkdir $1
 cd $1
 cp $dir/List/$1.list file.list
 cp $dir/*.C .
-cp $dir/runmakeMuDstQA.csh .
+cp -p $dir/runmakeMuDstQA.csh .
 ln -s $dir/.sl73_x8664_gcc485 .sl73_x8664_gcc485
 #root4star -b -q 'MCcode.C("file.list")'
 #root4star -l -b -q 'runmakeMuDstQA.C("file.list",5,1e5,0,"file.list.root")'
