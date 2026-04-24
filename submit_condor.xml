@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<job  minFilesPerProcess="1" maxFilesPerProcess="1000" fileListSyntax="rootd" simulateSubmission="false">
+   <shell>singularity exec -e -B /direct -B /star -B /afs -B /gpfs -B /sdcc/lustre02 /cvmfs/star.sdcc.bnl.gov/containers/rhic_sl7.sif</shell>
+   <command>
+	cd  /star/data01/pwg/xiatong/git/eff_9GeV
+	run.csh  &job;
+  </command>
+
+   <output fromScratch="*" toURL="file:/star/data01/pwg/xiatong/git/eff_9GeV/" />
+   <stdout URL="file:/star/data01/pwg/xiatong/git/eff_9GeV/log/&job;.log"/>
+   <stderr URL="file:/star/data01/pwg/xiatong/git/eff_9GeV/log/&job;.err"/>
+
+</job>
+
