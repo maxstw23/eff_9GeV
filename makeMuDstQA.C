@@ -37,14 +37,7 @@ const int cenDef[10] = {6, 13, 24, 43, 70, 110, 165, 243, 296, 500}; // 19.6 GeV
 const int POI_pid = 8;                                              // 8 PI+, 9 PI-, 11 K+, 12 K-, 14 PROTON, 15 ANTIPROTON
 const float eta_cut = 1.5;
 
-// TODO(9GeV): re-calibrate nSigma mean/std for 9.2 GeV dE/dx before enabling IsKaonSimple
-const float nSigma_mean_kplus[] = {-0.5500438476923803, -0.5164212736925582, -0.135794235274739, 0.15017305991207924, 0.32248630519875976, 0.41197415696694956, 0.45719631253735526, 0.4878169702137747, 0.5044291074272809};
-const float nSigma_std_kplus[] = {0.9302819715941184, 0.9505401993414448, 0.9811275523747907, 0.9758746510505741, 0.9657538054392253, 0.9603437231896049, 0.964730433026012, 0.9734955481628287, 0.9891243748658657};
-const float nSigma_mean_kminus[] = {-0.5680872157381425, -0.5212650950694582, -0.13846690482679463, 0.15080482319787217, 0.34072679606923295, 0.45989368509235, 0.5575680695782215, 0.6640482627441271, 0.7815873985258732};
-const float nSigma_std_kminus[] = {0.925105888427935, 0.9281962282158126, 0.9468297432568321, 0.9440332276394887, 0.9393592914549478, 0.9527052904519252, 0.9883895251363765, 1.0417285911064913, 1.0996984102335328};
-
 void makeMuDstQA(TString InputFileList, Int_t cen = 5, Int_t nFiles = 1, Int_t nEvents = 0, TString OutputFile = "test.histo.root");
-bool IsKaonSimple(float pT, float nSigma, float nSigmaCut, int charge);
 
 void makeMuDstQA(TString InputFileList, Int_t cen, Int_t nFiles, Int_t nEvents, TString OutputFile)
 {
@@ -373,23 +366,3 @@ void makeMuDstQA(TString InputFileList, Int_t cen, Int_t nFiles, Int_t nEvents, 
    delete chain;
 }
 
-// IsKaonSimple is unused; nSigma arrays above need 9GeV recalibration before enabling
-/*
-bool IsKaonSimple(float pT, float nSigma, float nSigmaCut, int charge)
-{
-    int pTbin = static_cast<int>(floor(pT / 0.2));
-    if (pTbin < 1 || pTbin > 9) return false;
-    if (std::abs(charge) != 1) return false;
-
-    if (charge > 0)
-    {
-        if (fabs(nSigma - nSigma_mean_kplus[pTbin-1])*1.0 / nSigma_std_kplus[pTbin-1] > nSigmaCut) return false;
-        return true;
-    }
-    else
-    {
-        if (fabs(nSigma - nSigma_mean_kminus[pTbin-1])*1.0 / nSigma_std_kminus[pTbin-1] > nSigmaCut) return false;
-        return true;
-    }
-}
-*/
