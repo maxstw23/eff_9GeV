@@ -34,12 +34,12 @@
 #endif
 
 const int cenDef[10] = {6, 13, 24, 43, 70, 110, 165, 243, 296, 500}; // 19.6 GeV 2011
-const int POI_pid = 8;                                              // 8 PI+, 9 PI-, 11 K+, 12 K-, 14 PROTON, 15 ANTIPROTON
+// pid: 8 PI+, 9 PI-, 11 K+, 12 K-, 14 PROTON, 15 ANTIPROTON
 const float eta_cut = 1.5;
 
-void makeMuDstQA(TString InputFileList, Int_t cen = 5, Int_t nFiles = 1, Int_t nEvents = 0, TString OutputFile = "test.histo.root");
+void makeMuDstQA(TString InputFileList, Int_t cen = 5, Int_t nFiles = 1, Int_t nEvents = 0, TString OutputFile = "test.histo.root", Int_t pid = 8);
 
-void makeMuDstQA(TString InputFileList, Int_t cen, Int_t nFiles, Int_t nEvents, TString OutputFile)
+void makeMuDstQA(TString InputFileList, Int_t cen, Int_t nFiles, Int_t nEvents, TString OutputFile, Int_t pid)
 {
 
    // Load libraries for CINT mode
@@ -217,7 +217,7 @@ void makeMuDstQA(TString InputFileList, Int_t cen, Int_t nFiles, Int_t nEvents, 
          const int Gid = mcTrack->GePid();
 
          nMc++;
-         if (Gid == POI_pid)
+         if (Gid == pid)
          {
             hPtMc->Fill(mcTrack->Pxyz().perp());
             hPhiMc->Fill(mcTrack->Pxyz().phi());
@@ -270,7 +270,7 @@ void makeMuDstQA(TString InputFileList, Int_t cen, Int_t nFiles, Int_t nEvents, 
             continue;
          if (ptrack->qaTruth() < 50.)
             continue;
-         if ((mcTrack->GePid() != POI_pid))
+         if ((mcTrack->GePid() != pid))
             continue;
          if (mcTrack->IdVx() != 1)
          {
@@ -328,7 +328,7 @@ void makeMuDstQA(TString InputFileList, Int_t cen, Int_t nFiles, Int_t nEvents, 
             LOG_WARN << "Mismatched idTruth " << gtrack->idTruth() << " and mcTrack Id " << mcTrack->Id()
                      << " this track is ignored" << endm;
          }
-         if ((mcTrack->GePid() != POI_pid))
+         if ((mcTrack->GePid() != pid))
             continue;
          if (mcTrack->IdVx() != 1)
          {

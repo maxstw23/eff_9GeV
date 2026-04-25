@@ -8,7 +8,7 @@ class StRefMultCorr;
 class CentralityMaker;
 
 
-void runmakeMuDstQA(TString InputFileList,Int_t cen, Int_t nfiles,Int_t nevents,TString OutputFile)
+void runmakeMuDstQA(TString InputFileList,Int_t cen, Int_t nfiles,Int_t nevents,TString OutputFile, Int_t pid=8)
 {
    gROOT->Reset();
    gROOT->Macro("loadMuDst.C");
@@ -29,5 +29,5 @@ gROOT->ProcessLine( str.Data() );
 */
 
   gROOT->LoadMacro("makeMuDstQA.C+");//+
-   makeMuDstQA(InputFileList,cen,nfiles,nevents,OutputFile); 
+   makeMuDstQA(InputFileList,cen,nfiles,nevents,OutputFile,pid);
 }
