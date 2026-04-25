@@ -3,7 +3,7 @@
    <shell>singularity exec -e -B /direct -B /star -B /afs -B /gpfs -B /sdcc/lustre02 /cvmfs/star.sdcc.bnl.gov/containers/rhic_sl7.sif</shell>
    <command>
 	cd  /star/data01/pwg/xiatong/git/eff_9GeV
-	run.csh  &job;
+	run.csh  &job; &pid;
   </command>
 
    <output fromScratch="*" toURL="file:/star/data01/pwg/xiatong/git/eff_9GeV/" />

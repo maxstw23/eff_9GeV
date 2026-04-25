@@ -27,12 +27,7 @@ die "Usage: perl split.pl <species>\nValid species: " . join(', ', sort keys %pi
 my ($list_file) = glob($list_prefix{$species} . "*.list");
 die "No list file found for $species\n" unless $list_file;
 
-# Write pid.conf for run.csh to source
-do {
-    open my $fh, '>', 'pid.conf' or die "Cannot write pid.conf: $!";
-    print $fh "set pid = $pid{$species}\n";
-    close $fh;
-};
+my $pid_val = $pid{$species};
 
 # Update output species in merge.sh
 do {
@@ -45,7 +40,7 @@ do {
     close $fh;
 };
 
-print "Configured for $species: PID=$pid{$species}, list=$list_file\n";
+print "Configured for $species: PID=$pid_val, list=$list_file\n";
 
 # Slurp all lines before List/ is removed
 open(my $inFh, '<', $list_file) or die "Cannot open $list_file: $!";
@@ -77,6 +72,6 @@ for(my $u = 1; $u < 10; $u++){
 
 for (my $i=1; $i <= $num/$div+1; $i++) {
     print `echo $i \n`;
-    print `star-submit-template -template submit_condor.xml -entities job=$i \n`;
+    print `star-submit-template -template submit_condor.xml -entities job=$i,pid=$pid_val \n`;
     print `sleep 1 \n`;
 }
